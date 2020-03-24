@@ -3,7 +3,8 @@ import {Text, View, Animated, Dimensions, Modal, Image} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {css} from 'styled-components';
 
-import Block from '../components/Block';
+import BlockView from '../components/BlockView';
+import ButtonTouchableOpacity from '../components/ButtonTouchableOpacity';
 import TextTypography from '../components/TextTypography';
 import {sizes} from '../constants/theme';
 
@@ -44,7 +45,7 @@ const Welcome = () => {
   const renderSteps = () => {
     const stepPosition = Animated.divide(scrollX, width);
     return (
-      <Block
+      <BlockView
         row
         center
         middle
@@ -62,7 +63,7 @@ const Welcome = () => {
           });
 
           return (
-            <Block
+            <BlockView
               animated
               key={`step-${index}`}
               color="gray"
@@ -76,12 +77,12 @@ const Welcome = () => {
             />
           );
         })}
-      </Block>
+      </BlockView>
     );
   };
   return (
-    <Block>
-      <Block center bot flex={0.4}>
+    <BlockView>
+      <BlockView center bot flex={0.4}>
         <TextTypography h1 center bold>
           Your Home.
           <TextTypography h1 primary>
@@ -97,12 +98,17 @@ const Welcome = () => {
           `}>
           Enjoy the experience.
         </TextTypography>
-      </Block>
-      <Block center middle>
+      </BlockView>
+      <BlockView center middle>
         {renderIllustrations()}
         {renderSteps()}
-      </Block>
-    </Block>
+      </BlockView>
+      <BlockView middle flex={0.5} blockMargin={[0, sizes.padding * 2]}>
+        <ButtonTouchableOpacity gradient>
+          <Text>ad</Text>
+        </ButtonTouchableOpacity>
+      </BlockView>
+    </BlockView>
   );
 };
 

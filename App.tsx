@@ -2,7 +2,7 @@ import {AppLoading} from 'expo';
 import {Asset} from 'expo-asset';
 import React, {useState} from 'react';
 
-import Block from './components/Block';
+import BlockView from './components/BlockView';
 import Navigation from './navigation';
 
 // import all used images
@@ -50,9 +50,9 @@ const App = () => {
   }
 
   return (
-    <Block>
+    <BlockView>
       <Navigation />
-    </Block>
+    </BlockView>
   );
 };
 export default App;
