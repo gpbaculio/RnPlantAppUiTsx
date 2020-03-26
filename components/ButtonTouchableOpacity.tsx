@@ -7,13 +7,24 @@ import {sizes, colors} from '../constants/theme';
 
 interface StyledButtonTouchableOpacity {
   gradient?: boolean;
+  shadow?: boolean;
 }
 
-const StyledButtonTouchableOpacity = styled.TouchableOpacity`
+const StyledButtonTouchableOpacity = styled.TouchableOpacity<
+  StyledButtonTouchableOpacity
+>`
   border-radius: ${sizes.radius}px;
   height: ${sizes.base * 3}px;
   justify-content: center;
   margin-vertical: ${sizes.padding / 3}px;
+  ${(props) => css`
+    ${props.shadow &&
+    `shadow-color: ${colors.black};
+    shadow-offset: 0 2px;
+    shadow-opacity: 0.1;
+    shadow-radius: 2px;
+    background-color: #fff;`}
+  `}
 `;
 
 const StyledButtonLinearGradient = styled(LinearGradient)`
@@ -30,6 +41,7 @@ interface ButtonTouchableOpacityProps extends StyledButtonTouchableOpacity {
 const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
   gradient,
   children,
+  shadow,
 }) => {
   const defaultButtonStyle = {
     startColor: colors.primary,
@@ -39,6 +51,10 @@ const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
     locations: [0.1, 0.9],
     opacity: 0.8,
     color: colors.white,
+    shadow,
+  };
+  const styledButtonStyles = {
+    shadow,
   };
   if (gradient) {
     return (
@@ -53,8 +69,11 @@ const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
       </StyledButtonTouchableOpacity>
     );
   }
+
   return (
-    <StyledButtonTouchableOpacity activeOpacity={defaultButtonStyle.opacity}>
+    <StyledButtonTouchableOpacity
+      {...styledButtonStyles}
+      activeOpacity={defaultButtonStyle.opacity}>
       {children}
     </StyledButtonTouchableOpacity>
   );

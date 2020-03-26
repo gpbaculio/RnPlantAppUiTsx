@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {Text, View, Animated, Dimensions, Modal, Image} from 'react-native';
+import {
+  Text,
+  View,
+  Animated,
+  Dimensions,
+  Modal,
+  Image,
+  Platform,
+} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {css} from 'styled-components';
 
@@ -61,16 +69,17 @@ const Welcome = () => {
             outputRange: [0.4, 1, 0.4],
             extrapolate: 'clamp',
           });
-
           return (
             <BlockView
               animated
-              key={`step-${index}`}
+              key={`step-${item.id}-${index}`}
               color="gray"
               defaultStyle={css`
-                width: 5px;
-                height: 5px;
-                border-radius: 5px;
+                flex: 0;
+                flex-basis: 5.5px;
+                height: 5.5px;
+                border-radius: 5.5px;
+                align-items: center;
                 margin-horizontal: 2.5px;
               `}
               animatedStyle={{opacity}}
@@ -81,7 +90,10 @@ const Welcome = () => {
     );
   };
   return (
-    <BlockView>
+    <BlockView
+      defaultStyle={css`
+        margin-top: ${Platform.OS === 'android' ? 24 : 0}px;
+      `}>
       <BlockView center bot flex={0.4}>
         <TextTypography h1 center bold>
           Your Home.
@@ -105,7 +117,19 @@ const Welcome = () => {
       </BlockView>
       <BlockView middle flex={0.5} blockMargin={[0, sizes.padding * 2]}>
         <ButtonTouchableOpacity gradient>
-          <Text>ad</Text>
+          <TextTypography center semiBold white>
+            Login
+          </TextTypography>
+        </ButtonTouchableOpacity>
+        <ButtonTouchableOpacity shadow>
+          <TextTypography center semiBold>
+            Signup
+          </TextTypography>
+        </ButtonTouchableOpacity>
+        <ButtonTouchableOpacity>
+          <TextTypography center caption gray>
+            Enjoy the experience.
+          </TextTypography>
         </ButtonTouchableOpacity>
       </BlockView>
     </BlockView>

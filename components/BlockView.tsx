@@ -107,13 +107,14 @@ const BlockView: React.FC<BlockViewProps> = ({
   };
   if (animated) {
     const AnimatedBlockView = Animated.createAnimatedComponent(StyledBlockView);
-    return children ? (
-      <AnimatedBlockView {...blockViewStyles} style={animatedStyle}>
-        {children}
-      </AnimatedBlockView>
-    ) : (
-      <AnimatedBlockView {...blockViewStyles} style={animatedStyle} />
-    );
+
+    if (children)
+      return (
+        <AnimatedBlockView {...blockViewStyles} style={animatedStyle}>
+          {children}
+        </AnimatedBlockView>
+      );
+    return <AnimatedBlockView {...blockViewStyles} style={animatedStyle} />;
   }
   return <StyledBlockView {...blockViewStyles}>{children}</StyledBlockView>;
 };
