@@ -47,7 +47,7 @@ const FormInput: React.FC<FormInputProps> = ({
   visiblePassword,
 }) => (
   <StyledFormInputContainer>
-    <TextTypography gray={touched && !error} error={touched && Boolean(error)}>
+    <TextTypography gray={!error} error={touched && Boolean(error)}>
       {label}
     </TextTypography>
     <StyledSignupTextInput
