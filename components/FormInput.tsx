@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import {colors} from '../constants/theme';
@@ -24,6 +24,7 @@ export const StyledSignupTextInput = styled.TextInput<
       ${props.error && `border-bottom-color: ${colors.accent}`}
     `}
 `;
+
 interface FormInputProps {
   touched: boolean;
   error: string;
@@ -34,6 +35,7 @@ interface FormInputProps {
   children?: React.ReactNode;
   visiblePassword?: boolean;
 }
+
 const FormInput: React.FC<FormInputProps> = ({
   touched,
   error,
@@ -43,27 +45,22 @@ const FormInput: React.FC<FormInputProps> = ({
   value,
   children,
   visiblePassword,
-}) => {
-  return (
-    <StyledFormInputContainer>
-      <TextTypography
-        gray={touched && !error}
-        error={touched && Boolean(error)}>
-        {label}
-      </TextTypography>
-      <StyledSignupTextInput
-        secureTextEntry={visiblePassword}
-        error={touched && Boolean(error)}
-        onChangeText={handleChange}
-        onBlur={handleBlur}
-        value={value}
-      />
-      {children && children}
-      {touched && Boolean(error) && (
-        <TextTypography error>{error}</TextTypography>
-      )}
-    </StyledFormInputContainer>
-  );
-};
-
+}) => (
+  <StyledFormInputContainer>
+    <TextTypography gray={touched && !error} error={touched && Boolean(error)}>
+      {label}
+    </TextTypography>
+    <StyledSignupTextInput
+      secureTextEntry={visiblePassword}
+      error={touched && Boolean(error)}
+      onChangeText={handleChange}
+      onBlur={handleBlur}
+      value={value}
+    />
+    {children && children}
+    {touched && Boolean(error) && (
+      <TextTypography error>{error}</TextTypography>
+    )}
+  </StyledFormInputContainer>
+);
 export default FormInput;

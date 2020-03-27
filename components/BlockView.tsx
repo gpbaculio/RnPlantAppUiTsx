@@ -154,7 +154,6 @@ const BlockView: React.FC<BlockViewProps> = ({
   };
   if (animated) {
     const AnimatedBlockView = Animated.createAnimatedComponent(StyledBlockView);
-
     if (children)
       return (
         <AnimatedBlockView {...blockViewStyles} style={animatedStyle}>

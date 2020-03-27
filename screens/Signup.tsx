@@ -48,7 +48,6 @@ const StyledTogglePasswordBtn = styled.TouchableOpacity`
 
 const Signup: React.FC<SignupProps> = ({navigation}) => {
   const [visiblePassword, setVisiblePassword] = useState(true);
-  const [hasSubmitted, setHasSubmitted] = useState(false);
   return (
     <StyledKeyboardAvoidingView behavior="padding">
       <TextTypography
@@ -135,12 +134,3 @@ const Signup: React.FC<SignupProps> = ({navigation}) => {
 };
 
 export default Signup;
-
-const styles = StyleSheet.create({
-  inputError: {
-    borderBottomColor: colors.accent,
-  },
-  textError: {
-    color: colors.accent,
-  },
-});
