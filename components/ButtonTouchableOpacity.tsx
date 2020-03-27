@@ -1,6 +1,7 @@
 import {LinearGradient} from 'expo-linear-gradient';
 import React from 'react';
 import {View, Text} from 'react-native';
+import {FlattenSimpleInterpolation} from 'styled-components';
 import styled, {css} from 'styled-components/native';
 
 import {sizes, colors} from '../constants/theme';
@@ -8,6 +9,7 @@ import {sizes, colors} from '../constants/theme';
 interface StyledButtonTouchableOpacity {
   gradient?: boolean;
   shadow?: boolean;
+  defaultStyle?: FlattenSimpleInterpolation;
 }
 
 const StyledButtonTouchableOpacity = styled.TouchableOpacity<
@@ -24,6 +26,7 @@ const StyledButtonTouchableOpacity = styled.TouchableOpacity<
     shadow-opacity: 0.1;
     shadow-radius: 2px;
     background-color: #fff;`}
+    ${props.defaultStyle && props.defaultStyle}
   `}
 `;
 
@@ -36,12 +39,17 @@ const StyledButtonLinearGradient = styled(LinearGradient)`
 
 interface ButtonTouchableOpacityProps extends StyledButtonTouchableOpacity {
   children?: React.ReactNode;
+  onPress?: () => void;
+  title?: string;
 }
 
 const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
   gradient,
   children,
   shadow,
+  onPress,
+  defaultStyle,
+  title,
 }) => {
   const defaultButtonStyle = {
     startColor: colors.primary,
@@ -53,12 +61,16 @@ const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
     color: colors.white,
     shadow,
   };
-  const styledButtonStyles = {
+  const styledButtonStyleProps = {
     shadow,
+    defaultStyle,
+    title,
   };
   if (gradient) {
     return (
-      <StyledButtonTouchableOpacity activeOpacity={defaultButtonStyle.opacity}>
+      <StyledButtonTouchableOpacity
+        onPress={onPress}
+        activeOpacity={defaultButtonStyle.opacity}>
         <StyledButtonLinearGradient
           start={defaultButtonStyle.start}
           end={defaultButtonStyle.end}
@@ -72,7 +84,8 @@ const ButtonTouchableOpacity: React.FC<ButtonTouchableOpacityProps> = ({
 
   return (
     <StyledButtonTouchableOpacity
-      {...styledButtonStyles}
+      onPress={onPress}
+      {...styledButtonStyleProps}
       activeOpacity={defaultButtonStyle.opacity}>
       {children}
     </StyledButtonTouchableOpacity>

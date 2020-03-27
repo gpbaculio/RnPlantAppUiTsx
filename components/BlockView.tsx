@@ -8,9 +8,10 @@ import {colors} from '../constants/theme';
 interface StyledBlockViewProps {
   center?: boolean;
   bot?: boolean;
-  flex?: number;
+  flex?: number | boolean;
   middle?: boolean;
   blockMargin?: number | number[];
+  blockPadding?: number | number[];
   row?: boolean;
   animated?: boolean;
   defaultStyle?: FlattenSimpleInterpolation;
@@ -30,7 +31,6 @@ const StyledBlockView = styled.View<StyledBlockViewProps>`
           margin-left: ${blockMargin};
         `;
       }
-
       if (Array.isArray(blockMargin)) {
         const marginLength = blockMargin.length;
         switch (marginLength) {
@@ -65,6 +65,50 @@ const StyledBlockView = styled.View<StyledBlockViewProps>`
         }
       }
     };
+    const handlePaddings = (blockPadding: number | number[]) => {
+      if (typeof blockPadding === 'number') {
+        return {
+          paddingTop: blockPadding,
+          paddingRight: blockPadding,
+          paddingBottom: blockPadding,
+          paddingLeft: blockPadding,
+        };
+      }
+
+      if (Array.isArray(blockPadding)) {
+        const paddingSize = blockPadding.length;
+        switch (paddingSize) {
+          case 1:
+            return {
+              paddingTop: blockPadding[0],
+              paddingRight: blockPadding[0],
+              paddingBottom: blockPadding[0],
+              paddingLeft: blockPadding[0],
+            };
+          case 2:
+            return {
+              paddingTop: blockPadding[0],
+              paddingRight: blockPadding[1],
+              paddingBottom: blockPadding[0],
+              paddingLeft: blockPadding[1],
+            };
+          case 3:
+            return {
+              paddingTop: blockPadding[0],
+              paddingRight: blockPadding[1],
+              paddingBottom: blockPadding[2],
+              paddingLeft: blockPadding[1],
+            };
+          default:
+            return {
+              paddingTop: blockPadding[0],
+              paddingRight: blockPadding[1],
+              paddingBottom: blockPadding[2],
+              paddingLeft: blockPadding[3],
+            };
+        }
+      }
+    };
     return css` 
       ${props.center && 'align-items: center;'}
       ${props.bot && 'justify-content: flex-end;'}
@@ -74,6 +118,7 @@ const StyledBlockView = styled.View<StyledBlockViewProps>`
       ${props.defaultStyle && props.defaultStyle}
       ${props.color && `background-color: ${colors[props.color]}`}
       ${props.blockMargin && handleMargins(props.blockMargin)}
+      ${props.blockPadding && handlePaddings(props.blockPadding)}
     `;
   }}
 `;
@@ -94,6 +139,7 @@ const BlockView: React.FC<BlockViewProps> = ({
   color,
   animatedStyle,
   blockMargin,
+  blockPadding,
 }) => {
   const blockViewStyles = {
     center,
@@ -104,6 +150,7 @@ const BlockView: React.FC<BlockViewProps> = ({
     defaultStyle,
     color,
     blockMargin,
+    blockPadding,
   };
   if (animated) {
     const AnimatedBlockView = Animated.createAnimatedComponent(StyledBlockView);

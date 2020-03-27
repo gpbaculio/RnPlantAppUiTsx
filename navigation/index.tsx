@@ -4,9 +4,15 @@ import React from 'react';
 import {Image} from 'react-native';
 
 import {theme} from '../constants';
-import {Welcome} from '../screens';
+import {Welcome, Signup} from '../screens';
 
-const NavigationStack = createStackNavigator();
+/* @noflow */
+export type NavigationStackParamList = {
+  Welcome: undefined;
+  Signup: undefined;
+};
+
+const NavigationStack = createStackNavigator<NavigationStackParamList>();
 
 const Navigation = () => (
   <NavigationContainer>
@@ -14,9 +20,9 @@ const Navigation = () => (
       screenOptions={{
         headerStyle: {
           height: theme.sizes.base * 4,
-          backgroundColor: theme.colors.white, // or 'white
+          backgroundColor: theme.colors.white,
           borderBottomColor: 'transparent',
-          elevation: 0, // for android
+          elevation: 0,
         },
         headerRightContainerStyle: {
           alignItems: 'center',
@@ -27,14 +33,20 @@ const Navigation = () => (
         ),
         headerLeftContainerStyle: {
           alignItems: 'center',
-          marginLeft: theme.sizes.base * 2,
+          marginLeft: theme.sizes.base * 1.4,
           paddingRight: theme.sizes.base,
+          marginTop: 8,
         },
       }}>
       <NavigationStack.Screen
         name="Welcome"
         options={{header: () => null}}
         component={Welcome}
+      />
+      <NavigationStack.Screen
+        name="Signup"
+        options={{headerTitle: () => null}}
+        component={Signup}
       />
     </NavigationStack.Navigator>
   </NavigationContainer>

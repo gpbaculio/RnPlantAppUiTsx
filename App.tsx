@@ -31,6 +31,7 @@ const images = [
 
 const App = () => {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
   const handleResourcesAsync = async () => {
     await Promise.all(
       images.map(async (image) => {
@@ -39,6 +40,7 @@ const App = () => {
       }),
     );
   };
+
   if (!isLoadingComplete) {
     return (
       <AppLoading

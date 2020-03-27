@@ -1,3 +1,6 @@
+import {NavigationStackParamList} from 'navigation';
+
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
 import {
   Text,
@@ -16,8 +19,17 @@ import ButtonTouchableOpacity from '../components/ButtonTouchableOpacity';
 import TextTypography from '../components/TextTypography';
 import {sizes} from '../constants/theme';
 
+type WelcomeScreenNavigationProp = StackNavigationProp<
+  NavigationStackParamList,
+  'Welcome'
+>;
+
+interface WelcomeProps {
+  navigation: WelcomeScreenNavigationProp;
+}
+
 const {width, height} = Dimensions.get('window');
-const Welcome = () => {
+const Welcome: React.FC<WelcomeProps> = ({navigation}) => {
   const [showTerms, setShowTerms] = useState(false);
   const illustrations = [
     {id: 1, source: require('../assets/images/illustration_1.png')},
@@ -121,7 +133,9 @@ const Welcome = () => {
             Login
           </TextTypography>
         </ButtonTouchableOpacity>
-        <ButtonTouchableOpacity shadow>
+        <ButtonTouchableOpacity
+          shadow
+          onPress={() => navigation.navigate('Signup')}>
           <TextTypography center semiBold>
             Signup
           </TextTypography>

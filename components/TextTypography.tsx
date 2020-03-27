@@ -15,15 +15,20 @@ interface StyledTextTypographyProps {
   semiBold?: boolean;
   white?: boolean;
   caption?: boolean;
+  error?: boolean;
+  accent?: boolean;
   defaultStyle?: FlattenSimpleInterpolation;
 }
 
 const StyledTextTypography = styled.Text<StyledTextTypographyProps>`
-  flex: 1;
+  font-size: ${sizes.font}px;
+  color: ${colors.black};
   ${(props) =>
     css`
+    ${props.error && `color: ${colors.accent}`}
       ${props.h1 && `font-size: ${sizes.h1}px`}
       ${props.h3 && `font-size: ${sizes.h3}px`}
+      ${props.accent && `color: ${colors.accent}`}
       ${props.center && 'text-align:center; text-align-vertical:center;'}
       ${props.bold && 'font-weight: bold'}
       ${props.primary && `color: ${colors.primary}`}
@@ -53,22 +58,26 @@ const TextTypography: React.FC<TextTypographyProps> = ({
   white,
   caption,
   gray,
+  accent,
+  error,
 }) => {
+  const textTypographyStyleProps = {
+    error,
+    accent,
+    h1,
+    center,
+    bold,
+    primary,
+    h3,
+    gray2,
+    defaultStyle,
+    semiBold,
+    white,
+    caption,
+    gray,
+  };
   return (
-    <StyledTextTypography
-      {...{
-        h1,
-        center,
-        bold,
-        primary,
-        h3,
-        gray2,
-        defaultStyle,
-        semiBold,
-        white,
-        caption,
-        gray,
-      }}>
+    <StyledTextTypography {...textTypographyStyleProps}>
       {children}
     </StyledTextTypography>
   );
