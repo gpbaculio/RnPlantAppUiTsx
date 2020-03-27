@@ -4,12 +4,13 @@ import React from 'react';
 import {Image} from 'react-native';
 
 import {theme} from '../constants';
-import {Welcome, Signup} from '../screens';
+import {Welcome, Signup, Login} from '../screens';
 
 /* @noflow */
 export type NavigationStackParamList = {
   Welcome: undefined;
   Signup: undefined;
+  Login: undefined;
 };
 
 const NavigationStack = createStackNavigator<NavigationStackParamList>();
@@ -47,6 +48,11 @@ const Navigation = () => (
         name="Signup"
         options={{headerTitle: () => null}}
         component={Signup}
+      />
+      <NavigationStack.Screen
+        name="Login"
+        options={{headerTitle: () => null}}
+        component={Login}
       />
     </NavigationStack.Navigator>
   </NavigationContainer>

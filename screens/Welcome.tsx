@@ -128,7 +128,9 @@ const Welcome: React.FC<WelcomeProps> = ({navigation}) => {
         {renderSteps()}
       </BlockView>
       <BlockView middle flex={0.5} blockMargin={[0, sizes.padding * 2]}>
-        <ButtonTouchableOpacity gradient>
+        <ButtonTouchableOpacity
+          gradient
+          onPress={() => navigation.navigate('Login')}>
           <TextTypography center semiBold white>
             Login
           </TextTypography>

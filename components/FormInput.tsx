@@ -4,17 +4,16 @@ import styled, {css} from 'styled-components/native';
 
 import {colors} from '../constants/theme';
 import TextTypography from './TextTypography';
-interface StyledSignupTextInputProps {
-  error?: boolean;
-}
 
 export const StyledFormInputContainer = styled.View`
   margin-bottom: 8px;
 `;
 
-export const StyledSignupTextInput = styled.TextInput<
-  StyledSignupTextInputProps
->`
+interface StyledTextInputProps {
+  error?: boolean;
+}
+
+export const StyledTextInput = styled.TextInput<StyledTextInputProps>`
   border-radius: 0;
   border-width: 0;
   border-bottom-color: ${colors.gray2};
@@ -50,7 +49,7 @@ const FormInput: React.FC<FormInputProps> = ({
     <TextTypography gray={!error} error={touched && Boolean(error)}>
       {label}
     </TextTypography>
-    <StyledSignupTextInput
+    <StyledTextInput
       secureTextEntry={visiblePassword}
       error={touched && Boolean(error)}
       onChangeText={handleChange}

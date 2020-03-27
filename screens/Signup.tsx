@@ -3,8 +3,6 @@ import {NavigationStackParamList} from 'navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import styled, {css} from 'styled-components/native';
 import * as Yup from 'yup';
@@ -24,11 +22,12 @@ interface SignupProps {
   navigation: SignupScreenNavigationProp;
 }
 
-const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
   flex: 1;
   padding-top: 12px;
   justify-content: center;
   background-color: #fff;
+  padding-horizontal: ${sizes.base * 2}px;
 `;
 
 const SignupSchema = Yup.object().shape({
@@ -37,7 +36,7 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string().required('Required'),
 });
 
-const StyledTogglePasswordBtn = styled.TouchableOpacity`
+export const StyledTogglePasswordBtn = styled.TouchableOpacity`
   position: absolute;
   align-items: flex-end;
   width: ${sizes.base * 2}px;
@@ -50,15 +49,10 @@ const Signup: React.FC<SignupProps> = ({navigation}) => {
   const [visiblePassword, setVisiblePassword] = useState(true);
   return (
     <StyledKeyboardAvoidingView behavior="padding">
-      <TextTypography
-        defaultStyle={css`
-          margin-left: ${sizes.base * 2}px;
-        `}
-        h1
-        bold>
+      <TextTypography h1 bold>
         Signup
       </TextTypography>
-      <BlockView middle blockPadding={[0, sizes.base * 2]}>
+      <BlockView middle>
         <Formik
           validationSchema={SignupSchema}
           initialValues={{email: '', username: '', password: ''}}
