@@ -22,6 +22,7 @@ const StyledButtonTouchableOpacity = styled.TouchableOpacity<
   ${(props) => css`
     ${props.shadow &&
     `shadow-color: ${colors.black};
+    elevation: 1;
     shadow-offset: 0 2px;
     shadow-opacity: 0.1;
     shadow-radius: 2px;

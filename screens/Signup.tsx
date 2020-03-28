@@ -22,28 +22,11 @@ interface SignupProps {
   navigation: SignupScreenNavigationProp;
 }
 
-export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
-  flex: 1;
-  padding-top: 12px;
-  justify-content: center;
-  background-color: #fff;
-  padding-horizontal: ${sizes.base * 2}px;
-`;
-
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   username: Yup.string().required('Required'),
   password: Yup.string().required('Required'),
 });
-
-export const StyledTogglePasswordBtn = styled.TouchableOpacity`
-  position: absolute;
-  align-items: flex-end;
-  width: ${sizes.base * 2}px;
-  height: ${sizes.base * 2}px;
-  top: ${sizes.base}px;
-  right: 0;
-`;
 
 const Signup: React.FC<SignupProps> = ({navigation}) => {
   const [visiblePassword, setVisiblePassword] = useState(true);
@@ -128,3 +111,20 @@ const Signup: React.FC<SignupProps> = ({navigation}) => {
 };
 
 export default Signup;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex: 1;
+  padding-top: 12px;
+  justify-content: center;
+  background-color: #fff;
+  padding-horizontal: ${sizes.base * 2}px;
+`;
+
+export const StyledTogglePasswordBtn = styled.TouchableOpacity`
+  position: absolute;
+  align-items: flex-end;
+  width: ${sizes.base * 2}px;
+  height: ${sizes.base * 2}px;
+  top: ${sizes.base}px;
+  right: 0;
+`;

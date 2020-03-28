@@ -3,6 +3,7 @@ import {NavigationStackParamList} from 'navigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
+import {Keyboard} from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import styled, {css} from 'styled-components/native';
 import * as Yup from 'yup';
@@ -38,8 +39,11 @@ const Login: React.FC<LoginProps> = ({navigation}) => {
       <BlockView middle>
         <Formik
           validationSchema={LoginSchema}
-          initialValues={{email: '', password: ''}}
-          onSubmit={() => console.log('asdasd')}>
+          initialValues={{email: 'gpbaculio@gmail.com', password: 'abcd123'}}
+          onSubmit={() => {
+            Keyboard.dismiss();
+            navigation.navigate('Browse');
+          }}>
           {({
             handleChange,
             handleBlur,
