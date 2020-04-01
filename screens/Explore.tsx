@@ -5,8 +5,6 @@ import React, {useState} from 'react';
 import {
   Animated,
   Dimensions,
-  StyleSheet,
-  Text,
   ScrollView,
   ImageSourcePropType,
   Image,
@@ -70,7 +68,7 @@ const Explore: React.FC<ExploreProps> = ({
       <TouchableOpacity
         key={`img-${index}`}
         onPress={() => {
-          //navigation.navigate('Product');
+          navigation.navigate('Product');
         }}>
         <ProductImg source={img} imgWidth={imgWidth} />
       </TouchableOpacity>
@@ -105,7 +103,7 @@ const Explore: React.FC<ExploreProps> = ({
         <ScrollExploreContainer>
           <ProductButton
             onPress={() => {
-              //navigation.navigate('Product');
+              navigation.navigate('Product');
             }}>
             <ProductButtonImg source={mainImage} />
           </ProductButton>
