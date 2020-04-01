@@ -2,7 +2,7 @@ import {NavigationStackParamList} from 'navigation';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useState} from 'react';
-import {StyleSheet, Dimensions, Image} from 'react-native';
+import {StyleSheet, Dimensions, Image, ImageSourcePropType} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import ButtonTouchableOpacity from '../components/ButtonTouchableOpacity';
@@ -26,7 +26,8 @@ interface ProfileProps {
   newsletter: boolean;
 }
 
-interface CategoryProps {
+// eslint-disable-next-line flowtype/no-types-missing-file-annotation
+export interface CategoryProps {
   id: string;
   name: string;
   tags: string[];
@@ -63,27 +64,34 @@ const Browse: React.FC<BrowseProps> = ({
         </ButtonTouchableOpacity>
       </BrowseHeadear>
       <BrowseTabs>
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab;
-          return (
-            <BrowseTab active={isActive} key={`tab-${tab}`}>
-              <BrowseTabText active={isActive}>{tab}</BrowseTabText>
-            </BrowseTab>
-          );
-        })}
+        {tabs.map((tab) => (
+          <BrowseTab
+            onPress={() => setActiveTab(tab)}
+            active={activeTab === tab}
+            tab={tab}
+            key={`tab-${tab}`}
+          />
+        ))}
       </BrowseTabs>
       <BrowseScrollView showsVerticalScrollIndicator={false}>
         <BrowseCategories>
-          {categories.map((category) => {
-            //add touchable opacity to navigate on explore route
-            return (
-              <BrowseCard>
-                <BrowseBadge>
-                  <Image source={category.image} />
-                </BrowseBadge>
-              </BrowseCard>
-            );
-          })}
+          {categories
+            .filter(
+              (category) =>
+                category.tags.indexOf(activeTab.toLowerCase()) !== -1,
+            )
+            .map((category) => {
+              //add touchable opacity to navigate on explore route
+              return (
+                <BrowseCategory
+                  key={`category-${category.id}`}
+                  categoryImg={category.image}
+                  categoryName={category.name}
+                  categoryCount={category.count}
+                  onPress={() => navigation.navigate('Explore', {category})}
+                />
+              );
+            })}
         </BrowseCategories>
       </BrowseScrollView>
     </BrowseContainer>
@@ -124,13 +132,16 @@ const BrowseTabs = styled.View`
 `;
 
 type BrowseTabProps = {
-  active?: boolean;
+  active: boolean;
+  tab?: string;
+  onPress?: () => void;
 };
 
-const BrowseTab = styled.TouchableOpacity<BrowseTabProps>`
+const BrowseTabButton = styled.TouchableOpacity<BrowseTabProps>`
   flex: 1;
   align-items: center;
   padding-vertical: ${sizes.base / 2}px;
+  justify-content: center;
   ${(props) => css`
     ${props.active &&
     `border-bottom-color: ${colors.secondary};
@@ -146,6 +157,12 @@ const BrowseTabText = styled.Text<BrowseTabProps>`
   `}
 `;
 
+const BrowseTab: React.FC<BrowseTabProps> = ({onPress, active, tab}) => (
+  <BrowseTabButton onPress={onPress} active={active}>
+    <BrowseTabText active={active}>{tab}</BrowseTabText>
+  </BrowseTabButton>
+);
+
 const BrowseScrollView = styled.ScrollView`
   padding-vertical: ${sizes.base * 2}px;
 `;
@@ -158,7 +175,7 @@ const BrowseCategories = styled.View`
   padding: 1px;
 `;
 
-const BrowseCard = styled.View`
+const BrowseCard = styled.TouchableOpacity`
   border-radius: ${sizes.radius}px;
   padding: ${sizes.base + 4}px;
   margin-bottom: ${sizes.base - 2}px;
@@ -175,8 +192,45 @@ const BrowseCard = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
 const BrowseBadge = styled.View`
   height: 50px;
   width: 50px;
   border-radius: 50px;
+  background-color: rgba(41, 216, 143, 0.2);
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
 `;
+
+const BrowseCategoryName = styled.Text`
+  font-weight: 500;
+  line-height: 20px;
+`;
+
+const BrowseCategoryCount = styled.Text`
+  color: ${colors.gray};
+  font-size: ${sizes.caption}px;
+`;
+
+interface BrowseCategoryProps {
+  categoryImg: ImageSourcePropType;
+  categoryName: string;
+  categoryCount: number;
+  onPress: () => void;
+}
+
+const BrowseCategory: React.FC<BrowseCategoryProps> = ({
+  categoryImg,
+  categoryName,
+  categoryCount,
+  onPress,
+}) => (
+  <BrowseCard onPress={onPress}>
+    <BrowseBadge>
+      <Image source={categoryImg} />
+    </BrowseBadge>
+    <BrowseCategoryName>{categoryName}</BrowseCategoryName>
+    <BrowseCategoryCount>{categoryCount}</BrowseCategoryCount>
+  </BrowseCard>
+);

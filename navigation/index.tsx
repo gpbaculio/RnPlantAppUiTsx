@@ -4,7 +4,8 @@ import React from 'react';
 import {Image} from 'react-native';
 
 import {theme} from '../constants';
-import {Welcome, Signup, Login, Browse} from '../screens';
+import {Welcome, Signup, Login, Browse, Explore} from '../screens';
+import {CategoryProps} from '../screens/Browse';
 
 /* @noflow */
 export type NavigationStackParamList = {
@@ -12,6 +13,7 @@ export type NavigationStackParamList = {
   Signup: undefined;
   Login: undefined;
   Browse: undefined;
+  Explore: {category: CategoryProps};
 };
 
 const NavigationStack = createStackNavigator<NavigationStackParamList>();
@@ -59,6 +61,11 @@ const Navigation = () => (
         name="Browse"
         options={{headerTitle: () => null}}
         component={Browse}
+      />
+      <NavigationStack.Screen
+        name="Explore"
+        options={{headerTitle: () => null}}
+        component={Explore}
       />
     </NavigationStack.Navigator>
   </NavigationContainer>
