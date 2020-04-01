@@ -42,7 +42,7 @@ interface BrowseProps {
   tabs: string[];
 }
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 const Browse: React.FC<BrowseProps> = ({
   navigation,
   profile,
