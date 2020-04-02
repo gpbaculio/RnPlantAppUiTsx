@@ -15,7 +15,7 @@ import styled, {css} from 'styled-components/native';
 
 import ButtonTouchableOpacity from '../components/ButtonTouchableOpacity';
 import TextTypography from '../components/TextTypography';
-import {explore as exploreImages} from '../constants/mocks';
+import {mocks} from '../constants';
 import {sizes, colors} from '../constants/theme';
 import {NavigationStackParamList} from '../navigation';
 
@@ -134,7 +134,7 @@ const Explore: React.FC<ExploreProps> = ({
 };
 
 Explore.defaultProps = {
-  exploreImages,
+  exploreImages: mocks.explore,
 };
 
 export default Explore;
