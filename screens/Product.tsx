@@ -1,6 +1,5 @@
-import {NavigationStackParamList} from 'navigation';
-
 import {StackNavigationProp} from '@react-navigation/stack';
+import {NavigationStackParamList} from 'navigation';
 import React from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
@@ -120,7 +119,7 @@ const ProductDescription = styled.Text`
   font-weight: 200;
 `;
 
-const Divider = styled.View`
+export const Divider = styled.View`
   height: 0;
   margin-vertical: ${sizes.base * 1.1}px;
   border-bottom-color: ${colors.gray2};

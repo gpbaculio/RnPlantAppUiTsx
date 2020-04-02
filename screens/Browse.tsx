@@ -15,7 +15,8 @@ type BrowseScreenNavigationProp = StackNavigationProp<
   'Browse'
 >;
 
-interface ProfileProps {
+// eslint-disable-next-line flowtype/no-types-missing-file-annotation
+export interface ProfileProps {
   username: string;
   location: string;
   email: string;
