@@ -63,7 +63,6 @@ const Explore: React.FC<ExploreProps> = ({
       resize > 75
         ? fullWidth - sizes.padding / 1.5
         : imgResolveSizes.width * 1.1;
-
     return (
       <TouchableOpacity
         key={`img-${index}`}
@@ -74,6 +73,7 @@ const Explore: React.FC<ExploreProps> = ({
       </TouchableOpacity>
     );
   };
+
   return (
     <ExploreContainer>
       <ExploreHeader>

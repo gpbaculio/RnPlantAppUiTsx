@@ -58,7 +58,7 @@ const Browse: React.FC<BrowseProps> = ({
         </TextTypography>
         <ButtonTouchableOpacity
           onPress={() => {
-            //navigation.navigate("Settings")
+            navigation.navigate('Settings');
           }}>
           <BrowseHeaderProfileAvatar source={profile.avatar} />
         </ButtonTouchableOpacity>
